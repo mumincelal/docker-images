@@ -4,7 +4,6 @@ services:
   mssql:
     container_name: mssql
     image: mcr.microsoft.com/mssql/server:2019-latest
-    restart: always
     environment:
       - SA_PASSWORD=12345MSSql@
       - ACCEPT_EULA=Y

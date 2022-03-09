@@ -4,7 +4,6 @@ services:
   arangodb:
     container_name: arangodb
     image: arangodb
-    restart: always
     environment:
       - ARANGO_ROOT_PASSWORD=12345
     ports:
