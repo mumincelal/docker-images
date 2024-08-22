@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+    networks:
+      - default
+    ports:
+      - 3306:3306
+networks:
+  default:
+    driver: bridge
