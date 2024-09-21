@@ -1,1 +1,0 @@
-# easey-wordpress-plugin
