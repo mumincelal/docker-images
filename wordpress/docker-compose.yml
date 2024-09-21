@@ -1,20 +1,37 @@
 version: '3.9'
 
 services:
-  wordpress:
-    container_name: wordpress
-    image: wordpress
-    restart: always
-    networks:
-      - mysql_default
+  nginx:
+    image: nginx:latest
+    container_name: nginx
     ports:
-      - '8888:80'
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
+      - ./html:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - wpnet
+
+  wordpress:
+    image: wordpress:php8.0-fpm
+    container_name: wordpress
+    volumes:
+      - ./html:/var/www/html
     environment:
       WORDPRESS_DB_HOST: mysql:3306
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_PASSWORD: 12345
       WORDPRESS_DB_NAME: wordpressdb
-    volumes: ['./html:/var/www/html']
+    networks:
+      - wpnet
+      - mysql_default
+
 networks:
+  wpnet:
+    driver: bridge
   mysql_default:
     external: true
