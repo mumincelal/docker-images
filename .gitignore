@@ -1,0 +1,4 @@
+// ignore any .pem file in any level of directory
+*.pem
+wordpress/html/
+.DS_Store
