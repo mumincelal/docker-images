@@ -5,5 +5,5 @@ services:
     container_name: mailhog
     image: mailhog/mailhog
     ports:
-      - 8025:8025
-      - 1025:1025
+      - 8025:8025 # HTTP PORT
+      - 1025:1025 # SMTP PORT
