@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025
