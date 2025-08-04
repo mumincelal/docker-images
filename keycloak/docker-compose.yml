@@ -1,22 +1,30 @@
-version: "3.9"
+version: '3.9'
 
 services:
   keycloak:
     container_name: keycloak
     image: jboss/keycloak
+    restart: unless-stopped
     environment:
-      - DB_VENDOR=POSTGRES
-      - DB_ADDR=postgres
-      - DB_DATABASE=keycloak
-      - DB_SCHEMA=public
-      - DB_USER=postgres
-      - DB_PASSWORD=12345
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=12345
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_SCHEMA: public
+      DB_USER: postgres
+      DB_PASSWORD: 12345
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: 12345
+      NO_PROXY: localhost,127.0.0.1,keycloak
+      SSO_IMPORT_FILE: /opt/keycloak/data/import/config.json
     ports:
       - 8080:8080
       - 8443:8443
       - 9990:9990
+    volumes:
+      - ./config/imex:/tmp/export
+      - ./config/imex:/opt/keycloak/data/import
+      - ./.data/keycloak:/opt/keycloak/data
+    command: ['start-dev', '--import-realm']
     depends_on:
       - postgres
 

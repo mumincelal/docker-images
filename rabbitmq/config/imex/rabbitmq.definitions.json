@@ -1,0 +1,49 @@
+{
+  "rabbit_version": "3.12.6",
+  "parameters": [],
+  "policies": [],
+  "queues": [
+    {
+      "name": "dead-letter",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    },
+    {
+      "name": "my-queue",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "dead-letter",
+        "x-dead-letter-routing-key": "dead-letter",
+        "x-queue-type": "classic"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "my-exchange",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "my-exchange",
+      "destination": "my-queue",
+      "routing_key": "my-routing-key",
+      "arguments": {}
+    },
+    {
+      "source": "my-exchange",
+      "destination": "dead-letter",
+      "routing_key": "dead-letter",
+      "arguments": {}
+    }
+  ]
+}
