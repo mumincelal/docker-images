@@ -1,4 +1,5 @@
 // ignore any .pem file in any level of directory
+.DS_Store
 *.pem
 wordpress/html/
-.DS_Store
+supabase/supabase-project/volumes/
